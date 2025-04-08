@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Form</title>
+</head>
+<body>
+    <form id="my_form" action="">
+        <label for="name">Full Name:</label><br>
+        <input type="text" id="name"><br>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email"><br>
+        <label for="">Phone Number</label><br>
+        <input type="text" id="phone"><br>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        var form = document.getElementById("my_form");
+        form.addEventListener("submit", function(event) {
+            event.preventDefault(); 
+
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var phone = document.getElementById("phone").value;
+
+            console.log("Name: " + name);
+            console.log(`Email: ${email}`);            
+            console.log(`Phone: ${phone}`);
+        });
+    </script>
+    
+</body>
+</html>

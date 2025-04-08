@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 6</title>
+</head>
+
+<body>
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum nemo dicta iusto provident alias nostrum unde
+        libero dolor doloribus. Sequi architecto totam omnis, temporibus blanditiis qui beatae pariatur veniam? Alias.
+    </p>
+
+
+    <script>
+       let attempts= 4
+       for (let i=0; i<attempts; i++){
+        password = prompt("Enter your password: ");
+        let correct_pass="12345";
+       
+       
+        if (password==correct_pass){
+            alert("Password is correct")
+            break;
+        }
+            
+        else{
+            alert("Password is incorrect")
+            remaining_attempts= attempts-(i+1)
+            if (remaining_attempts>0){
+                alert("You have " + remaining_attempts + " attempts left")
+            }else {
+                alert("Account blocked")
+            }
+        }
+    }
+    </script>
+
+</body>
+
+</html>

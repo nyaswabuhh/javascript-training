@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 11</title>
+</head>
+<body>
+    <p>
+        # TASK 11: Using Python or PHP or Java or Ruby or JavaScript
+# Write a program that takes the date of birth of a person and the program outputs the
+# age in terms of years,months,days TODAY.
+
+# datetime manipulates date and time
+
+    </p>
+    <script>
+        let dob = prompt("Enter your date of birth (YYYY-MM-DD): ");
+        let dob_Date = new Date(dob);
+        let today = new Date();
+        let ageInMilliseconds = today - dob_Date;
+        let ageInSeconds = ageInMilliseconds / 1000;
+        let ageInMinutes = ageInSeconds / 60;
+        let ageInHours = ageInMinutes / 60;
+        let ageInDays = ageInHours / 24;
+        let ageInYears = Math.floor(ageInDays / 365); 
+        let remainingDays = Math.floor(ageInDays % 365);
+        let ageInMonths = Math.floor(remainingDays / 30);
+        remainingDays = Math.floor(remainingDays % 30);
+        let ageInDaysFinal = Math.floor(remainingDays);
+        alert(`You are ${ageInYears} years, ${ageInMonths} months, and ${ageInDaysFinal} days old.`);
+        console.log(`You are ${ageInYears} years, ${ageInMonths} months, and ${ageInDaysFinal} days old.`);
+    </script>
+    
+</body>
+</html>

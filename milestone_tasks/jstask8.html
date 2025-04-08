@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 8</title>
+</head>
+
+<body>
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum nemo dicta iusto provident alias nostrum unde
+        libero dolor doloribus. Sequi architecto totam omnis, temporibus blanditiis qui beatae pariatur veniam? Alias.
+    </p>
+
+
+    <script>
+        let speed = prompt('Enter the speed: ');
+
+        let speed_limit = 70;
+        let km_per_point = 5;
+        let points = 0;
+        let demerit_points = 0;
+        let demerit_points_limit = 12;
+        let status = '';
+        let status_message = '';
+        // calculate the demerit points
+        if (speed > speed_limit) {
+            demerit_points = Math.floor((speed - speed_limit) / km_per_point);
+            points = demerit_points;
+            if (points < demerit_points_limit) {
+                status = 'OK';
+                status_message = `Points: ${points}`;
+                console.log(`Demerit Points: ${status_message}`);
+            } else {
+                status = 'License suspended';
+                status_message = `Points: ${points}`;
+                console.log(`Demerit Points: ${status_message}`);
+            }
+        } else {
+            status = 'OK';
+            status_message = `Points: ${points}`;
+            console.log(`Demerit Points: ${status_message}`);
+        }
+        console.log(`Status: ${status}`);
+    </script>
+
+</body>
+
+</html>
