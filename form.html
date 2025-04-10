@@ -16,9 +16,14 @@
         <br>
         <button type="submit">Submit</button>
     </form>
+    <span id="results">
+
+    </span>
 
     <script>
         var form = document.getElementById("my_form");
+        var results = document.getElementById("results")
+
         form.addEventListener("submit", function(event) {
             event.preventDefault(); 
 
@@ -26,9 +31,22 @@
             var email = document.getElementById("email").value;
             var phone = document.getElementById("phone").value;
 
-            console.log("Name: " + name);
-            console.log(`Email: ${email}`);            
-            console.log(`Phone: ${phone}`);
+            
+
+            if (name==""||email==""||phone=="") {
+                results.style.color = "red";
+                results.innerHTML = "Please fill in all fields.";
+            }
+            else {
+                results.style.fontStyle = "bold";
+                results.style.color = "green";
+                results.innerHTML = `Name: ${name}<br>Email: ${email}<br>Phone: ${phone}`;
+            }
+            // console.log("Form submitted successfully!");
+
+            // console.log("Name: " + name);
+            // console.log(`Email: ${email}`);            
+            // console.log(`Phone: ${phone}`);
         });
     </script>
     

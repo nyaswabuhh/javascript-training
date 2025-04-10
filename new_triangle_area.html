@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area</title>
+</head>
+
+<body>
+    <h2>Area of a Triangle</h2>
+    <form id="area_triangle" action="">
+        <label for="">Base</label>
+        <input type="text" name="" id="base"><br>
+        <label for="">Height</label>
+        <input type="text" name="" id="height"><br><br>
+        <input type="reset" value="Reset" id="reset">
+        <button type="submit">Submit</button>
+        
+    </form>
+
+    <span id="area"></span>
+    <script>
+        var form = document.getElementById("area_triangle");
+        var area = document.getElementById("area")
+
+        form.addEventListener("reset", function (event) {
+            area.innerHTML = "";
+        });
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            var base = document.getElementById("base").value;
+            var height = document.getElementById("height").value;
+
+            if (base == "" || height == "") {
+                area.style.color = "red";
+                area.innerHTML = "Please fill in all fields.";
+            }
+            else {
+                
+                area.style.color = "green";
+                area.innerHTML = `Area: ${0.5 * base * height}`;
+            }
+        });
+    </script>
+
+</body>
+
+</html>

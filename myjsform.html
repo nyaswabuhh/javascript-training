@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROJECT 1</title>
+</head>
+
+<body>
+    <div style="text-align: center;">
+        <br>
+        <form action="" id="my_js_form">
+            <label for="">First Name</label>
+            <input type="text" name="" id="first_name"><br>
+            <label for="">Last Name</label>
+            <input type="text" name="" id="last_name"><br>
+            <label for="">Email</label>
+            <input type="email" name="" id="email"><br><br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <br>
+    <br>
+    <div style="text-align: center;">
+        <h2>Form Submission Details</h2>
+        <table id="form_table" border="1" style="border-collapse: collapse; width: 50%; margin: auto;">
+         
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+            </tr>
+            </thead>
+            <tbody id="form_table_body">
+                
+            </tbody>
+        </table>
+    </div>
+    <script>
+        var form = document.getElementById("my_js_form");
+        var form_table = document.getElementById("form_table");
+
+        var first_name = document.getElementById("first_name");
+        var last_name = document.getElementById("last_name");
+        var email = document.getElementById("email");
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault(); 
+
+            if (first_name.value === "" || last_name.value === "" || email.value === "") {
+                alert("Please fill in all fields.");
+            } else {
+                
+                var newRow = document.createElement("tr");
+
+               
+                var firstNameCell = document.createElement("td");
+                firstNameCell.textContent = first_name.value;
+                newRow.appendChild(firstNameCell);
+
+                var lastNameCell = document.createElement("td");
+                lastNameCell.textContent = last_name.value;
+                newRow.appendChild(lastNameCell);
+
+                var emailCell = document.createElement("td");
+                emailCell.textContent = email.value;
+                newRow.appendChild(emailCell);
+
+             
+                document.getElementById("form_table_body").appendChild(newRow);
+
+                
+                first_name.value = "";
+                last_name.value = "";
+                email.value = "";
+
+            }
+        });
+    </script>
+
+</body>
+
+</html>

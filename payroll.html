@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payroll</title>
+</head>
+
+<body>
+    <br>
+    <div style="text-align: center;">
+        <h2>Net Pay Calculator</h2>
+        <label for="">Enter Gross Pay</label>
+        <input type="number" id="gross_pay">
+        <!-- <label for="">Enter Deductions</label>
+        <input type="text" id="deductions"><br> -->
+        <button type="submit">Calculate</button>
+    </div>
+    <br>
+    <br>
+    <div style="text-align: center;">
+        <h3>Net Pay Calculation</h3>
+        <table border="1" style="border-collapse: collapse; width: 50%; margin: auto;">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Base Salary</td>
+                    <td id="base_salary"></td>
+                </tr>
+                <tr>
+                    <td>NSSF Tier 1</td>
+                    <td id="nssf_tier1"></td>
+                </tr>
+                <tr>
+                    <td>NSSF Tier 1</td>
+                    <td id="nssf_tier2"></td>
+                </tr>
+                <tr>
+                    <td>Housing Levy</td>
+                    <td id="Housing-levy"></td>
+                </tr>
+                <tr>
+                    <td>SHIF</td>
+                    <td id="shif"></td>
+                </tr>
+                <tr>
+                    <td>Final P.A.Y.E</td>
+                    <td id="paye"></td>
+                </tr>
+                <tr>
+                    <td>Net Pay</td>
+                    <td id="net_pay"></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <script>
+        var gross_pay = document.getElementById("gross_pay");
+        var base_salary = document.getElementById("base_salary");
+        var nssf_tier1 = document.getElementById("nssf_tier1");
+        var nssf_tier2 = document.getElementById("nssf_tier2");
+        var housing_levy = document.getElementById("Housing-levy");
+        var shif = document.getElementById("shif");
+        var paye = document.getElementById("paye");
+        var net_pay = document.getElementById("net_pay");
+
+        function calculateNetPay() {
+            var grossPayValue = parseFloat(gross_pay.value);
+            if (isNaN(grossPayValue)) {
+                alert("Please enter a valid number for gross pay.");
+                return;
+            }
+
+            // Calculate deductions
+            var nssfTier1Value = 480;
+            var nssf2 =0;
+            if (grossPayValue > 8000) {
+                nssf2 = grossPayValue * 0.06;
+            }
+            var nssfTier2Value = (nssf2<3840) ? nssf2 : 3840;
+            var housingLevyValue = grossPayValue * 0.015;
+            var shifValue = grossPayValue * 0.0275;
+            var taxableIncome = grossPayValue - (nssfTier1Value + nssfTier2Value + housingLevyValue + shifValue);
+            
+            function calculatePaye(taxableIncome) {
+                let payeValue = 0;
+                if (taxableIncome > 24000) {
+                    payeValue += 24000 * (10 / 100);
+                    taxableIncome -= 24000;
+                    if (taxableIncome > 0) {
+                        payeValue += Math.min(taxableIncome, 8333) * (25 / 100);
+                        taxableIncome -= Math.min(taxableIncome, 8333);
+                    }
+                    if (taxableIncome > 0) {
+                        payeValue += Math.min(taxableIncome, 467667) * (30 / 100);
+                        taxableIncome -= Math.min(taxableIncome, 467667);
+                    }
+                    if (taxableIncome > 0) {
+                        payeValue += Math.min(taxableIncome, 300000) * (32.5 / 100);
+                        taxableIncome -= Math.min(taxableIncome, 300000);
+                    }
+                    if (taxableIncome > 0) {
+                        payeValue += taxableIncome * (35 / 100);
+                        taxableIncome = 0;
+                    }
+                }
+                return payeValue;
+            }
+            var payeValue = calculatePaye(taxableIncome);
+            
+
+            // var payeValue = taxableIncome * 0.3;
+
+            // Calculate net pay
+            var netPayValue = grossPayValue - (nssfTier1Value + nssfTier2Value + housingLevyValue + shifValue + payeValue);
+
+            // Update the table with calculated values
+            base_salary.innerHTML = grossPayValue.toFixed(2);
+            nssf_tier1.innerHTML = nssfTier1Value.toFixed(2);
+            nssf_tier2.innerHTML = nssfTier2Value.toFixed(2);
+            housing_levy.innerHTML = housingLevyValue.toFixed(2);
+            shif.innerHTML = shifValue.toFixed(2);
+            paye.innerHTML = payeValue.toFixed(2);
+            net_pay.innerHTML = netPayValue.toFixed(2);
+        }
+
+        document.querySelector("button").addEventListener("click", calculateNetPay);
+
+    </script>
+
+</body>
+
+</html>
