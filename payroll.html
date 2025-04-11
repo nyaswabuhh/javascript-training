@@ -17,44 +17,72 @@
         <input type="text" id="deductions"><br> -->
         <button type="submit">Calculate</button>
     </div>
-    <br>
+
     <br>
     <div style="text-align: center;">
-        <h3>Net Pay Calculation</h3>
+        <h3>Payslip Summary</h3>
         <table border="1" style="border-collapse: collapse; width: 50%; margin: auto;">
-            <thead>
+            <thead style="background-color: #f2f2f2;">
                 <tr>
                     <th>Description</th>
+                    <th>Deductions</th>
                     <th>Amount</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr style="font-weight: bold;">
                     <td>Base Salary</td>
+                    <td></td>
                     <td id="base_salary"></td>
                 </tr>
                 <tr>
                     <td>NSSF Tier 1</td>
                     <td id="nssf_tier1"></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>NSSF Tier 1</td>
                     <td id="nssf_tier2"></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>Housing Levy</td>
                     <td id="Housing-levy"></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>SHIF</td>
                     <td id="shif"></td>
+                    <td></td>
+                </tr>
+                <tr style="font-weight: bold;">
+                    <td>Total Statutory Deductions</td>
+                    <td id="total_deductions"></td>
+                    <td></td>
+                </tr>
+                <tr style="font-weight: bold;">
+                    <td>Taxable Income</td>
+                    <td></td>
+                    <td id="taxable_income"></td>
                 </tr>
                 <tr>
-                    <td>Final P.A.Y.E</td>
+                    <td>P.A.Y.E</td>
+                    <td></td>
                     <td id="paye"></td>
                 </tr>
                 <tr>
+                    <td>Less Relief</td>
+                    <td></td>
+                    <td id="relief"></td>
+                </tr>
+                <tr style="font-weight: bold;">
+                    <td>Final P.A.Y.E</td>
+                    <td></td>
+                    <td id="final_paye"></td>
+                </tr>
+                <tr style="font-weight: bold;">
                     <td>Net Pay</td>
+                    <td></td>
                     <td id="net_pay"></td>
                 </tr>
             </tbody>
@@ -69,6 +97,8 @@
         var housing_levy = document.getElementById("Housing-levy");
         var shif = document.getElementById("shif");
         var paye = document.getElementById("paye");
+        var final_paye = document.getElementById("final_paye");
+        var relief = document.getElementById("relief");
         var net_pay = document.getElementById("net_pay");
 
         function calculateNetPay() {
@@ -80,15 +110,16 @@
 
             // Calculate deductions
             var nssfTier1Value = 480;
-            var nssf2 =0;
+            var nssf2 = 0;
             if (grossPayValue > 8000) {
                 nssf2 = grossPayValue * 0.06;
             }
-            var nssfTier2Value = (nssf2<3840) ? nssf2 : 3840;
+            var nssfTier2Value = (nssf2 < 3840) ? nssf2 : 3840;
             var housingLevyValue = grossPayValue * 0.015;
             var shifValue = grossPayValue * 0.0275;
             var taxableIncome = grossPayValue - (nssfTier1Value + nssfTier2Value + housingLevyValue + shifValue);
-            
+            var reliefValue = 2400;
+
             function calculatePaye(taxableIncome) {
                 let payeValue = 0;
                 if (taxableIncome > 24000) {
@@ -114,21 +145,27 @@
                 return payeValue;
             }
             var payeValue = calculatePaye(taxableIncome);
-            
 
-            // var payeValue = taxableIncome * 0.3;
+            var final_payeValue = payeValue - reliefValue;
 
-            // Calculate net pay
-            var netPayValue = grossPayValue - (nssfTier1Value + nssfTier2Value + housingLevyValue + shifValue + payeValue);
+            var netPayValue = grossPayValue - (nssfTier1Value + nssfTier2Value + housingLevyValue + shifValue + final_payeValue);
 
-            // Update the table with calculated values
-            base_salary.innerHTML = grossPayValue.toFixed(2);
+            var deductions = nssfTier1Value + nssfTier2Value + housingLevyValue + shifValue;
+
+
+
+            base_salary.innerHTML = grossPayValue.toFixed(2).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
             nssf_tier1.innerHTML = nssfTier1Value.toFixed(2);
             nssf_tier2.innerHTML = nssfTier2Value.toFixed(2);
             housing_levy.innerHTML = housingLevyValue.toFixed(2);
             shif.innerHTML = shifValue.toFixed(2);
             paye.innerHTML = payeValue.toFixed(2);
-            net_pay.innerHTML = netPayValue.toFixed(2);
+            relief.innerHTML = reliefValue.toFixed(2);
+            final_paye.innerHTML = final_payeValue.toFixed(2).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+            net_pay.innerHTML = netPayValue.toFixed(2).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+            total_deductions.innerHTML = deductions.toFixed(2).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+            taxable_income.innerHTML = taxableIncome.toFixed(2).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+
         }
 
         document.querySelector("button").addEventListener("click", calculateNetPay);
